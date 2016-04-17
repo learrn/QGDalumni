@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundchange"
+    android:orientation="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:background="@color/myBlue"
+            android:clickable="true"
+            android:onClick="onPageTitleClick">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true">
+
+
+                <ImageButton
+                    android:id="@+id/forumDisplayBackBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/myBlue"
+                    android:onClick="onBackBtnClick"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_arrow_back_white_48dp" />
+
+                <ImageView
+                    android:id="@+id/forumDisplaySeg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/segmentation" />
+
+                <TextView
+                    android:id="@+id/forumDisplayPageTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <com.xiangjuncheng.qgdalumni.view.RefreshActionBtn
+                    android:id="@+id/forumDisplayRefreshBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/myBlue"
+                    android:onClick="onRefreshBtnClick"
+                    android:padding="10dp"
+                    android:src="@drawable/navigation_refresh">
+
+                </com.xiangjuncheng.qgdalumni.view.RefreshActionBtn>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.xiangjuncheng.qgdalumni.view.XListView
+                android:id="@+id/forumDisplayListView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:divider="@null"
+                android:dividerHeight="5dp"
+                android:fadingEdge="none"
+                android:fastScrollEnabled="true"
+                android:listSelector="@color/white">
+
+            </com.xiangjuncheng.qgdalumni.view.XListView>
+
+            <ProgressBar
+                android:id="@+id/forumDisplayProgressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/newNote"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        android:onClick="onNewThreadBtnClick"
+        android:background="@drawable/ic_action_new" />
+</FrameLayout>

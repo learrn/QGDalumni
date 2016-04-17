@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xiangjuncheng.qgdalumni">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
+        android:name=".QGDApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/qgd_logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".control.activty.LoginActivity">
+
+        </activity>
+        <activity android:name=".control.activty.RegisterActivity" />
+        <activity
+            android:name=".control.activty.SplashActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".control.activty.ChatActivity" />
+        <activity android:name=".control.activty.ForumActivity" />
+        <activity android:name=".control.activty.ShowForumPage"/>
+        <activity android:name=".control.activty.NewForumPage"/>
+        <activity android:name=".control.activty.MainActivity"/>
+        <meta-data
+            android:name="Bmob_APP_KEY"
+            android:value="d1a8c89a67617dde126a0b33445426e5" />
+    </application>
+
+</manifest>

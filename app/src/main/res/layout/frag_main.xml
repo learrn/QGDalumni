@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ly_main_weixin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fcfcfc"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/college_picture"/>
+    <com.bigkoo.convenientbanner.ConvenientBanner xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/convenientBanner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:canLoop="true" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/school"/>
+    <TextView
+        android:textSize="14sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:text="@string/introduction"/>
+
+</LinearLayout>
