@@ -36,11 +36,11 @@ import cn.bmob.v3.listener.SQLQueryListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.ValueEventListener;
 
-public class ChatActivity extends Activity{
+public class ChatActivity extends Activity {
     EditText et_input;
     private String chatContent;//消息内容
     ListView chatListView;
-    public  List<ChatEntity> chatEntityList=new ArrayList<ChatEntity>();//所有聊天内容
+    public List<ChatEntity> chatEntityList = new ArrayList<ChatEntity>();//所有聊天内容
     private String myAccount;
     private String chatAccount;
     private String chatNick;
@@ -55,12 +55,13 @@ public class ChatActivity extends Activity{
         //设置top面板信息
         final InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         chatAccount = getIntent().getStringExtra("account");
-        chatNick=getIntent().getStringExtra("nick");
-        chatType=getIntent().getIntExtra("type",0);
-        TextView nick_tv=(TextView) findViewById(R.id.chat_top_nick);
+        chatNick = getIntent().getStringExtra("nick");
+        chatType = getIntent().getIntExtra("type", 0);
+        TextView nick_tv = (TextView) findViewById(R.id.chat_top_nick);
         nick_tv.setText(chatNick);
-        chatListView=(ListView) findViewById(R.id.lv_chat);
-        et_input=(EditText) findViewById(R.id.myMessage);
+        chatListView = (ListView) findViewById(R.id.lv_chat);
+        et_input = (EditText) findViewById(R.id.myMessage);
+        myAccount = MainActivity.me.getUsername();
         //发送新消息
         findViewById(R.id.send).setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
@@ -127,23 +128,45 @@ public class ChatActivity extends Activity{
     }
 
     private void initData() {
-        String sql = "select * from ChatEntity where ( sendAccount = ? and receiveAccount = ? ) or ( sendAccount = ? and receiveAccount = ? )";
-        BmobQuery<ChatEntity> query = new BmobQuery<ChatEntity>();
-        query.setSQL(sql);
-        query.setPreparedParams(new Object[]{myAccount, chatAccount, chatAccount, myAccount});
-        query.doSQLQuery(this, new SQLQueryListener<ChatEntity>() {
-            @Override
-            public void done(BmobQueryResult<ChatEntity> bmobQueryResult, BmobException e) {
-                if (e == null) {
-                    chatEntityList = (List<ChatEntity>) bmobQueryResult.getResults();
-                    Log.d("xjc", "success");
-                } else {
-                    Log.d("xjc", "error:" + e);
+        if (chatType == 1) {
+            String sql = "select * from ChatEntity where ( sendAccount = ? and receiveAccount = ? ) or ( sendAccount = ? and receiveAccount = ? )";
+            BmobQuery<ChatEntity> query = new BmobQuery<ChatEntity>();
+            query.setSQL(sql);
+            query.setPreparedParams(new Object[]{myAccount, chatAccount, chatAccount, myAccount});
+            query.doSQLQuery(this, new SQLQueryListener<ChatEntity>() {
+                @Override
+                public void done(BmobQueryResult<ChatEntity> bmobQueryResult, BmobException e) {
+                    if (e == null) {
+                        chatEntityList = (List<ChatEntity>) bmobQueryResult.getResults();
+                        Log.d("xjc", chatEntityList.size() + "");
+                        Log.d("xjc", "success");
+                        chatListView.setAdapter(new ChatAdapter(ChatActivity.this, chatEntityList, chatType));
+                        chatListView.setSelection(chatListView.getBottom());//使ListView显示最后一条
+                    } else {
+                        Log.d("xjc", "error:" + e);
+                    }
                 }
-            }
-        });
-        chatListView.setAdapter(new ChatAdapter(ChatActivity.this, chatEntityList, chatType));
-
+            });
+        }else if (chatType == 2){
+            String sql = "select * from ChatEntity where sendAccount = ? or receiveAccount = ? ";
+            BmobQuery<ChatEntity> query = new BmobQuery<ChatEntity>();
+            query.setSQL(sql);
+            query.setPreparedParams(new Object[]{chatAccount, chatAccount});
+            query.doSQLQuery(this, new SQLQueryListener<ChatEntity>() {
+                @Override
+                public void done(BmobQueryResult<ChatEntity> bmobQueryResult, BmobException e) {
+                    if (e == null) {
+                        chatEntityList = (List<ChatEntity>) bmobQueryResult.getResults();
+                        Log.d("xjc", chatEntityList.size() + "");
+                        Log.d("xjc", "success");
+                        chatListView.setAdapter(new ChatAdapter(ChatActivity.this, chatEntityList, chatType));
+                        chatListView.setSelection(chatListView.getBottom());//使ListView显示最后一条
+                    } else {
+                        Log.d("xjc", "error:" + e);
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -154,9 +177,10 @@ public class ChatActivity extends Activity{
 
     public void updateChatView(ChatEntity chatEntity) {
         chatEntityList.add(chatEntity);
-        chatListView.setAdapter(new ChatAdapter(this, chatEntityList,chatType));
+        chatListView.setAdapter(new ChatAdapter(this, chatEntityList, chatType));
         chatListView.setSelection(chatListView.getBottom());//使ListView显示最后一条
     }
+
     public void onBackBtnClick(View v) {
         this.finish();
         overridePendingTransition(android.R.anim.fade_in,

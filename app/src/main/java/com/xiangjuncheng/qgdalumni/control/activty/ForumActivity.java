@@ -38,7 +38,7 @@ public class ForumActivity extends Activity implements XListView.IXListViewListe
     private ProgressBar m_pBar;
     private RefreshActionBtn m_refreshBtn;
     private int forumType;
-    public static List<ForumEntityList> forumEntities = new ArrayList<ForumEntityList>();
+    private List<ForumEntityList> forumEntities = new ArrayList<ForumEntityList>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,12 +96,16 @@ public class ForumActivity extends Activity implements XListView.IXListViewListe
 
     private void refresh() {
         BmobQuery<ForumEntityList> query = new BmobQuery<ForumEntityList>();
+        query.addWhereEqualTo("type",forumType);
         query.setLimit(100);
         query.findObjects(this, new FindListener<ForumEntityList>() {
             @Override
             public void onSuccess(List<ForumEntityList> list) {
                 forumEntities = list;
                 Log.d("xjc","success");
+                Log.d("xjc",forumEntities.size()+"");
+                m_adapter = new ForumDisplayAdapter(ForumActivity.this, forumEntities);
+                m_listView.setAdapter(m_adapter);
             }
 
             @Override
@@ -113,6 +117,7 @@ public class ForumActivity extends Activity implements XListView.IXListViewListe
             }
         });
         m_adapter = new ForumDisplayAdapter(ForumActivity.this, forumEntities);
+        Log.d("xjc","refresh");
         m_listView.setAdapter(m_adapter);
         m_pBar.setVisibility(View.GONE);
 
@@ -126,6 +131,7 @@ public class ForumActivity extends Activity implements XListView.IXListViewListe
 
 
     public void onRefreshBtnClick(View v) {
+        Log.d("xjc","onRefreshBTnClick");
         if (m_refreshBtn.isRefreshing())
             return;
         m_refreshBtn.startRefresh();
@@ -135,6 +141,7 @@ public class ForumActivity extends Activity implements XListView.IXListViewListe
     @Override
     public void onRefresh() {
         m_refreshBtn.startRefresh();
+        Log.d("xjc","onRefresh");
         refresh();
     }
 

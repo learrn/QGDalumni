@@ -84,7 +84,7 @@ public class QGDExpandableListAdapter extends BaseExpandableListAdapter {
             case 1:
                 return allList.size();
             case 2:
-                return GroupFragment.chatRoom.length;
+                return 1;
             default:
                 return 0;
         }

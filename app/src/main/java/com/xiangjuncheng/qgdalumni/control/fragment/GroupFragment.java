@@ -27,7 +27,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 
 public class GroupFragment extends Fragment {
-    public static String[] chatRoom = new String[]{"同级校友", "全校校友"};
+    public static String[] chatRoom = new String[]{"全校校友"};
     View messageLayout;
     ExpandableListView expandablelistview;
     Gson gson = new Gson();

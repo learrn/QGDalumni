@@ -103,6 +103,8 @@ public class ShowForumPage extends Activity implements XListView.IXListViewListe
             @Override
             public void onSuccess(List<ForumEntity> list) {
                 forumEntities = list;
+                m_adapter = new ShowForumAdapter(ShowForumPage.this,data,forumEntities);
+                m_listView.setAdapter(m_adapter);
             }
 
             @Override
