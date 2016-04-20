@@ -1,10 +1,8 @@
 package com.xiangjuncheng.qgdalumni.control.fragment;
 
 import android.content.Intent;
-import android.content.Loader;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +13,22 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.xiangjuncheng.qgdalumni.R;
 import com.xiangjuncheng.qgdalumni.common.User_info;
+import com.xiangjuncheng.qgdalumni.common.Util.TimeUtils;
 import com.xiangjuncheng.qgdalumni.common.adpter.QGDExpandableListAdapter;
 import com.xiangjuncheng.qgdalumni.control.activty.ChatActivity;
 import com.xiangjuncheng.qgdalumni.control.activty.MainActivity;
+import com.xiangjuncheng.qgdalumni.model.bean.ChatEntity;
 import com.xiangjuncheng.qgdalumni.model.bean.GroupEntity;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobRealTimeData;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.ValueEventListener;
 
 public class GroupFragment extends Fragment {
     public static String[] chatRoom = new String[]{"全校校友"};
@@ -33,11 +37,12 @@ public class GroupFragment extends Fragment {
     Gson gson = new Gson();
     List<GroupEntity> sameGroupEntityList;
     List<GroupEntity> allGroupEntityList;
+    BmobRealTimeData data = new BmobRealTimeData();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
         messageLayout = inflater.inflate(R.layout.farg_group, container, false);
-        initdata();
         expandablelistview = (ExpandableListView) messageLayout.findViewById(R.id.expandablelistview);
+        initData();
         ExpandableListAdapter adapter = new QGDExpandableListAdapter(getActivity().getApplicationContext(), sameGroupEntityList, allGroupEntityList);
         expandablelistview.setGroupIndicator(getResources().getDrawable(R.drawable.expandablelistviewselector));
         expandablelistview.setAdapter(adapter);
@@ -65,7 +70,7 @@ public class GroupFragment extends Fragment {
         return messageLayout;
     }
 
-    private void initdata() {
+    private void initData() {
         sameGroupEntityList = new ArrayList<>();
         allGroupEntityList = new ArrayList<>();
         BmobQuery<User_info> query= new BmobQuery<User_info>();
@@ -110,6 +115,33 @@ public class GroupFragment extends Fragment {
                 // TODO Auto-generated method stub
                 allGroupEntityList = gson.fromJson("", new TypeToken<List<GroupEntity>>() {
                 }.getType());
+            }
+        });
+        data.start(getContext(), new ValueEventListener() {
+            @Override
+            public void onConnectCompleted() {
+                if (data.isConnected()) {
+                    data.subTableUpdate("_User");
+                }
+            }
+
+            @Override
+            public void onDataChange(JSONObject jsonObject) {
+                if (BmobRealTimeData.ACTION_UPDATETABLE.equals(jsonObject.optString("action"))) {
+                    JSONObject data = jsonObject.optJSONObject("data");
+                    if (data.optInt("year") == MainActivity.me.getYear()){
+                        GroupEntity groupEntity = new GroupEntity();
+                        groupEntity.setAccount(data.optString("username"));
+                        groupEntity.setNick(data.optString("name"));
+                        sameGroupEntityList.add(groupEntity);
+                    }
+                    GroupEntity groupEntity = new GroupEntity();
+                    groupEntity.setAccount(data.optString("username"));
+                    groupEntity.setNick(data.optString("name"));
+                    allGroupEntityList.add(groupEntity);
+                    ExpandableListAdapter adapter = new QGDExpandableListAdapter(getActivity().getApplicationContext(), sameGroupEntityList, allGroupEntityList);
+                    expandablelistview.setAdapter(adapter);
+                }
             }
         });
     }
