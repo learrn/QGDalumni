@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.xiangjuncheng.qgdalumni.R;
-import com.xiangjuncheng.qgdalumni.common.User_info;
+import com.xiangjuncheng.qgdalumni.model.bean.User_info;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.SaveListener;

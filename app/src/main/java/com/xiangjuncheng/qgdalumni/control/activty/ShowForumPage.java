@@ -1,9 +1,6 @@
 package com.xiangjuncheng.qgdalumni.control.activty;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,7 +12,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.xiangjuncheng.qgdalumni.R;
-import com.xiangjuncheng.qgdalumni.common.QGDMessage;
 import com.xiangjuncheng.qgdalumni.common.Util.TimeUtils;
 import com.xiangjuncheng.qgdalumni.common.adpter.ShowForumAdapter;
 import com.xiangjuncheng.qgdalumni.model.bean.ForumEntity;
@@ -98,7 +94,7 @@ public class ShowForumPage extends Activity implements XListView.IXListViewListe
     private void refresh() {
         BmobQuery<ForumEntity> query = new BmobQuery<ForumEntity>();
         query.setLimit(100);
-        query.addWhereEqualTo("id",m_id);
+        query.addWhereEqualTo("title",m_title);
         query.findObjects(this, new FindListener<ForumEntity>() {
             @Override
             public void onSuccess(List<ForumEntity> list) {
@@ -146,7 +142,6 @@ public class ShowForumPage extends Activity implements XListView.IXListViewListe
         forumEntity.setContent(recContent);
         forumEntity.setPostName(MainActivity.me.getName());
         forumEntity.setPostAccount(myAccount);
-        forumEntity.setId(m_id);
         forumEntity.setTime(TimeUtils.geTimeNoS());
         forumEntity.save(ShowForumPage.this, new SaveListener() {
             @Override

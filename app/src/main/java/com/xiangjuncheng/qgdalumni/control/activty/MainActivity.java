@@ -12,21 +12,18 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.xiangjuncheng.qgdalumni.R;
 import com.xiangjuncheng.qgdalumni.control.fragment.MeFragment;
 import com.xiangjuncheng.qgdalumni.control.fragment.ForumFragment;
 import com.xiangjuncheng.qgdalumni.control.fragment.GroupFragment;
 import com.xiangjuncheng.qgdalumni.control.fragment.MainFragment;
-import com.xiangjuncheng.qgdalumni.model.bean.GroupEntity;
-import com.xiangjuncheng.qgdalumni.common.User_info;
+import com.xiangjuncheng.qgdalumni.model.bean.User_info;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.newim.BmobIM;
 import cn.bmob.newim.listener.ConnectListener;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {

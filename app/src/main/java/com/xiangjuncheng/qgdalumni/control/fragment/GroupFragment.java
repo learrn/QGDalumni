@@ -12,12 +12,10 @@ import android.widget.ExpandableListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.xiangjuncheng.qgdalumni.R;
-import com.xiangjuncheng.qgdalumni.common.User_info;
-import com.xiangjuncheng.qgdalumni.common.Util.TimeUtils;
+import com.xiangjuncheng.qgdalumni.model.bean.User_info;
 import com.xiangjuncheng.qgdalumni.common.adpter.QGDExpandableListAdapter;
 import com.xiangjuncheng.qgdalumni.control.activty.ChatActivity;
 import com.xiangjuncheng.qgdalumni.control.activty.MainActivity;
-import com.xiangjuncheng.qgdalumni.model.bean.ChatEntity;
 import com.xiangjuncheng.qgdalumni.model.bean.GroupEntity;
 
 import org.json.JSONObject;

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/QGDAlumni.iml" filepath="$PROJECT_DIR$/QGDAlumni.iml" />
+      <module fileurl="file://$PROJECT_DIR$/QGDalumni.iml" filepath="$PROJECT_DIR$/QGDalumni.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

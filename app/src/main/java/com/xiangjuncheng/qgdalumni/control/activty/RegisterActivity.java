@@ -11,7 +11,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.xiangjuncheng.qgdalumni.R;
-import com.xiangjuncheng.qgdalumni.common.User_info;
+import com.xiangjuncheng.qgdalumni.model.bean.User_info;
 
 import cn.bmob.v3.listener.SaveListener;
 
@@ -69,7 +69,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
                 } else if (password.getText().toString().isEmpty()) {
                     Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
                 } else if (year.getText().toString().isEmpty()) {
-                    Toast.makeText(this, "入学年份不能为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "毕业年份不能为空", Toast.LENGTH_SHORT).show();
                 } else {
                     user = new User_info();
                     user.setCollage(collageName);
